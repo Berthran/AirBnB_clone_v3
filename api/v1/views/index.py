@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-'''
+"""
 Create a route for status and stats
-'''
+"""
 
-from flask import jsonify
 from api.v1.views import app_views
+from flask import jsonify
 from models import storage
 from models.city import City
 from models.amenity import Amenity
