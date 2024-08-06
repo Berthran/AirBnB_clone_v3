@@ -12,14 +12,6 @@ from models import storage
 from flask import jsonify, abort, request
 
 
-@app_views.get('/places', strict_slashes=False)
-def get_places():
-    ''' Retrieves the list of all Place objects '''
-    places = storage.all(Place).values()
-    places = [place.to_dict() for place in places]
-    return jsonify(places)
-
-
 @app_views.get('/cities/<city_id>/places', strict_slashes=False)
 def get_city_places(city_id):
     ''' Retrieves the list of all Place objects of a State '''
