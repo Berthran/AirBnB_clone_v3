@@ -9,12 +9,14 @@ from models.state import State
 from models import storage
 from flask import jsonify, abort, request
 
+
 @app_views.get('/states', strict_slashes=False)
 def get_states():
     ''' Retrieves the list of all State objects '''
     states = storage.all(State).values()
     states = [state.to_dict() for state in states]
     return jsonify(states)
+
 
 @app_views.get('/states/<state_id>', strict_slashes=False)
 def get_state(state_id):
@@ -25,7 +27,7 @@ def get_state(state_id):
         return jsonify(state.to_dict())
     else:
         abort(404)
-    
+
 
 @app_views.delete('/states/<state_id>', strict_slashes=False)
 def delete_state(state_id):
@@ -36,6 +38,7 @@ def delete_state(state_id):
     storage.delete(state)
     storage.save()
     return jsonify({}), 200
+
 
 @app_views.post('/states', strict_slashes=False)
 def create_state():
@@ -48,6 +51,7 @@ def create_state():
     state = State(**data)
     state.save()
     return jsonify(state.to_dict()), 201
+
 
 @app_views.put('/states/<state_id>', strict_slashes=False)
 def update_state(state_id):
