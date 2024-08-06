@@ -48,7 +48,7 @@ def create_amenity():
     data = request.get_json()
     if 'name' not in data:
         return jsonify({'error': 'Missing name'}), 400
-    amenity = amenity(**data)
+    amenity = Amenity(**data)
     amenity.save()
     return jsonify(amenity.to_dict()), 201
 
