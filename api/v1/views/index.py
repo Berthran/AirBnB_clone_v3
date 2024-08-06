@@ -5,7 +5,6 @@ Create a route for status and stats
 
 from api.v1.views import app_views
 from flask import jsonify
-import json
 # from ....models import storage
 # from models import storage
 # from models.city import City
@@ -16,10 +15,10 @@ import json
 # from models.state import State
 
 
-@app_views.route('/status', methods=['GET'], strict_slashes=False)
+@app_views.route('/status')
 def status():
     """Returns a JSON: {"status": "OK"}"""
-    return jsonify({"status":  "OK"})
+    return jsonify({"status": "OK"})
 
 
 # @app_views.route('/stats', methods=['GET'], strict_slashes=False)
