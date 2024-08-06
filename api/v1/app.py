@@ -3,7 +3,7 @@
 The Flask app settings
 """
 
-from api.v1.views import app_views
+from .views import app_views
 from flask import Blueprint
 from flask import Flask
 from models import storage
