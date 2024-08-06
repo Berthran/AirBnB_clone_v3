@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+The Flask app settings
+'''
 
 import os
 from models import storage
@@ -18,6 +21,7 @@ def not_found(error):
 
 @app.teardown_appcontext
 def close_session(exception):
+    """ Closes the Session """
     storage.close()
 
 
