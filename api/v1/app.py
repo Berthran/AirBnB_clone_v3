@@ -3,7 +3,7 @@
 The Flask app settings
 """
 
-from .views import app_views
+from api.v1.views import app_views
 from flask import Blueprint
 from flask import Flask
 from models import storage
@@ -11,7 +11,7 @@ import os
 
 
 app = Flask(__name__)
-
+app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(app_views)
 
 
