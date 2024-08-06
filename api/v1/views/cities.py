@@ -18,6 +18,7 @@ def get_cities():
     cities = [city.to_dict() for city in cities]
     return jsonify(cities)
 
+
 @app_views.get('/states/<state_id>/cities', strict_slashes=False)
 def get_state_cities(state_id):
     ''' Retrieves the list of all City objects of a State '''
@@ -27,6 +28,7 @@ def get_state_cities(state_id):
     cities = [city.to_dict() for city in state.cities]
     return jsonify(cities)
 
+
 @app_views.get('/cities/<city_id>', strict_slashes=False)
 def get_city(city_id):
     ''' Retrieves a City object '''
@@ -35,7 +37,8 @@ def get_city(city_id):
         return jsonify(city.to_dict())
     else:
         abort(404)
-    
+
+
 @app_views.delete('/cities/<city_id>', strict_slashes=False)
 def delete_city(city_id):
     ''' Deletes a City object '''
@@ -45,6 +48,7 @@ def delete_city(city_id):
     storage.delete(city)
     storage.save()
     return jsonify({}), 200
+
 
 @app_views.post('/states/<state_id>/cities', strict_slashes=False)
 def create_city(state_id):
@@ -61,6 +65,7 @@ def create_city(state_id):
     city = City(**data)
     city.save()
     return jsonify(city.to_dict()), 201
+
 
 @app_views.put('/cities/<city_id>', strict_slashes=False)
 def update_city(city_id):
