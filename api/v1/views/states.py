@@ -60,7 +60,7 @@ def update_state(state_id):
     if state is None:
         abort(404)
     if not request.json:
-        return jsonify({'error': 'Not a JSON'}), 400
+        return jsonify('Not a JSON'), 400
     data = request.get_json()
     for key, value in data.items():
         if key not in ['id', 'created_at', 'updated_at']:
