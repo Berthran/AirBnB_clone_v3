@@ -5,10 +5,10 @@ handles all default RESTFul API actions
 '''
 
 
-from models.user import User
 from api.v1.views import app_views
 from models import storage
 from flask import jsonify, abort, request
+from models.user import User
 
 
 @app_views.get('/users', strict_slashes=False)
