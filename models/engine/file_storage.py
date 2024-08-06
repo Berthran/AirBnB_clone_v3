@@ -71,7 +71,7 @@ class FileStorage:
 
     def get(self, cls, clsId):
         """retrieves one object from __objects"""
-        objId = f"{cls.__name__}.{clsId}"
+        objId = "{}.{}".format(cls.__name__, clsId)"
         if objId in self.all().keys():
             return (self.all()[objId])
         return (None)
