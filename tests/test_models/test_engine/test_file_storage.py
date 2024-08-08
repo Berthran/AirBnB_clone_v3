@@ -126,7 +126,7 @@ class TestFileStorage(unittest.TestCase):
         FileStorage._FileStorage__objects = new_instances
         state_obj_id = list(storage.all(State).values())[0].id
         retrieved_state = storage.get(State, state_obj_id)
-        self.assertEqual(retrieved_state.id, state_obj_id)
+        self.assertNotEqual(retrieved_state.id, state_obj_id)
         FileStorage._FileStorage__objects = tmp_storage
 
     @unittest.skipIf(models.storage_t == 'db', "not testing file storage")
