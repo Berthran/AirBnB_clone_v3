@@ -11,7 +11,7 @@ from models import storage
 from flask import jsonify, abort, request
 
 
-@app_views.get('/cities', strict_slashes=False)
+@app_views.route('/cities', methods=['GET'], strict_slashes=False)
 def get_cities():
     ''' Retrieves the list of all City objects '''
     cities = storage.all(City).values()
@@ -19,7 +19,8 @@ def get_cities():
     return jsonify(cities)
 
 
-@app_views.get('/states/<state_id>/cities', strict_slashes=False)
+@app_views.route('/states/<state_id>/cities', methods=['GET'],
+                strict_slashes=False)
 def get_state_cities(state_id):
     ''' Retrieves the list of all City objects of a State '''
     state = storage.get(State, state_id)
@@ -29,7 +30,8 @@ def get_state_cities(state_id):
     return jsonify(cities)
 
 
-@app_views.get('/cities/<city_id>', strict_slashes=False)
+@app_views.route('/cities/<city_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_city(city_id):
     ''' Retrieves a City object '''
     city = storage.get(City, city_id)
@@ -39,7 +41,8 @@ def get_city(city_id):
         abort(404)
 
 
-@app_views.delete('/cities/<city_id>', strict_slashes=False)
+@app_views.route('/cities/<city_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_city(city_id):
     ''' Deletes a City object '''
     city = storage.get(City, city_id)
@@ -50,13 +53,14 @@ def delete_city(city_id):
     return jsonify({}), 200
 
 
-@app_views.post('/states/<state_id>/cities', strict_slashes=False)
+@app_views.route('/states/<state_id>/cities', methods=['POST'],
+                 strict_slashes=False)
 def create_city(state_id):
     ''' Creates a City Object '''
     state = storage.get(State, state_id)
     if state is None:
         abort(404)
-    if not request.json:
+    if not request.content_type == 'application/json':
         return jsonify({'error': 'Not a JSON'}), 400
     data = request.get_json()
     if 'name' not in data:
@@ -67,13 +71,13 @@ def create_city(state_id):
     return jsonify(city.to_dict()), 201
 
 
-@app_views.put('/cities/<city_id>', strict_slashes=False)
+@app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
     ''' Updates a City Object '''
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
-    if not request.json:
+    if not request.content_type == 'application/json':
         return jsonify({'error': 'Not a JSON'}), 400
     data = request.get_json()
     for key, value in data.items():
