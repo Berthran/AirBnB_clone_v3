@@ -11,7 +11,7 @@ from models import storage
 from flask import jsonify, abort, request
 
 
-@app_views.get('/amenities', strict_slashes=False)
+@app_views.route('/amenities', methods=['GET'], slashes=False)
 def get_amenities():
     ''' Retrieves the list of all Amenity objects '''
     amenities = storage.all(Amenity).values()
@@ -19,7 +19,7 @@ def get_amenities():
     return jsonify(amenities)
 
 
-@app_views.get('/amenities/<amenity_id>', strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['GET'], slashes=False)
 def get_amenity(amenity_id):
     ''' Retrieves a amenity object '''
     amenity = storage.get(Amenity, amenity_id)
@@ -29,7 +29,8 @@ def get_amenity(amenity_id):
         abort(404)
 
 
-@app_views.delete('/amenities/<amenity_id>', strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods = ['DELETE'],
+                 strict_slashes=False)
 def delete_amenity(amenity_id):
     ''' Deletes a amenity object '''
     amenity = storage.get(Amenity, amenity_id)
@@ -40,27 +41,27 @@ def delete_amenity(amenity_id):
     return jsonify({}), 200
 
 
-@app_views.post('/amenities', strict_slashes=False)
+@app_views.route('/amenities', methods=['POST'], strict_slashes=False)
 def create_amenity():
     ''' Creates a amenity Object '''
-    if not request.json:
-        return jsonify({'error': 'Not a JSON'}), 400
+    if not request.content_type == 'application/json':
+        return jsonify('Not a JSON'), 400
     data = request.get_json()
     if 'name' not in data:
-        return jsonify({'error': 'Missing name'}), 400
+        return jsonify('Missing name'), 400
     amenity = Amenity(**data)
     amenity.save()
     return jsonify(amenity.to_dict()), 201
 
 
-@app_views.put('/amenities/<amenity_id>', strict_slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['PUT'], strict_slashes=False)
 def update_amenity(amenity_id):
     ''' Updates a amenity Object '''
     amenity = storage.get(amenity, amenity_id)
     if amenity is None:
         abort(404)
-    if not request.json:
-        return jsonify({'error': 'Not a JSON'}), 400
+    if not request.content_type == 'application/json':
+        return jsonify('Not a JSON'), 400
     data = request.get_json()
     for key, value in data.items():
         if key not in ['id', 'created_at', 'updated_at']:
