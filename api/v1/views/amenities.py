@@ -11,7 +11,7 @@ from models import storage
 from flask import jsonify, abort, request
 
 
-@app_views.route('/amenities', methods=['GET'], slashes=False)
+@app_views.route('/amenities', methods=['GET'], strict_slashes=False)
 def get_amenities():
     ''' Retrieves the list of all Amenity objects '''
     amenities = storage.all(Amenity).values()
@@ -19,7 +19,7 @@ def get_amenities():
     return jsonify(amenities)
 
 
-@app_views.route('/amenities/<amenity_id>', methods=['GET'], slashes=False)
+@app_views.route('/amenities/<amenity_id>', methods=['GET'], strict_slashes=False)
 def get_amenity(amenity_id):
     ''' Retrieves a amenity object '''
     amenity = storage.get(Amenity, amenity_id)
