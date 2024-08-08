@@ -121,7 +121,7 @@ class TestFileStorage(unittest.TestCase):
         new_instances = {}
         for key, value in classes.items():
             instance = value()
-            new_instances.update({f"{key}.{instance.id}": instance})
+            new_instances.update({"{}.{}".format(key, instance.id): instance})
         tmp_storage = FileStorage._FileStorage__objects
         FileStorage._FileStorage__objects = new_instances
         state_obj_id = list(storage.all(State).values())[0].id
