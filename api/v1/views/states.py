@@ -57,11 +57,8 @@ def create_state():
 def update_state(state_id):
     ''' Updates a State Object '''
     state = storage.get(State, state_id)
-    print(f"request incoming of type {type(request)} is {request}")
-    print(f"requst attributes are {dir(request)}")
     if state is None:
         abort(404)
-    print("approaching breakpoint")
     if not request.json:
         return jsonify('Not a JSON'), 400
   
