@@ -20,7 +20,7 @@ def get_cities():
 
 
 @app_views.route('/states/<state_id>/cities', methods=['GET'],
-                strict_slashes=False)
+                 strict_slashes=False)
 def get_state_cities(state_id):
     ''' Retrieves the list of all City objects of a State '''
     state = storage.get(State, state_id)
