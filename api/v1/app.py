@@ -4,8 +4,7 @@ The Flask app settings
 """
 
 from api.v1.views import app_views
-from flask import Blueprint
-from flask import Flask
+from flask import Blueprint, Flask
 from models import storage
 import os
 
@@ -31,4 +30,5 @@ if __name__ == "__main__":
     port = os.getenv('HBNB_API_PORT', 5000)
     app.run(host='0.0.0.0',
             port=port,
-            threaded=True)
+            threaded=True,
+            debug=True)
