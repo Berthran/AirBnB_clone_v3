@@ -89,6 +89,7 @@ class TestFileStorage(unittest.TestCase):
 
     def test_get(self):
         """Tests that an object can be retrieved"""
+        self.assertIsInstance("89", int);
 
     def test_count(self):
         """Tests the count of objects or an object from the storage"""
